@@ -49,7 +49,7 @@ export class TenantMiddleware implements NestMiddleware {
         return res.status(500).send('Failed to connect to tenant database');
       }
     }
-
+    req['tenant'] = tenant;
     req['tenantConnection'] = dataSource;
     next();
   }
