@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  # tenant-app:
+  #   build: .
+  #   ports:
+  #     - "7000:3000"
+  #   volumes:
+  #     - .:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   command: npm run start:dev
+  #   depends_on:
+  #     - tenant-db
+
+  tenant-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: tenant
+      POSTGRES_PASSWORD: tenant
+      POSTGRES_DB: tenant
+    ports:
+      - "5434:5432"
+
+  tenant-pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: tenant@mail.com
+      PGADMIN_DEFAULT_PASSWORD: tenant
+    ports:
+      - "5050:80"
+    depends_on:
+      - tenant-db
